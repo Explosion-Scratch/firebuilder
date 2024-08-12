@@ -27,4 +27,10 @@ Download a binary for your platform from [`dist`](/dist)
 > Shameless plug: You can install this in one command using my tool [justinstall](https://github.com/explosion-scratch/justinstall) by running `justinstall explosion-scratch/firebuilder`
 
 **Or**:
-- Run `bun cli.js` for an interactive setup or see [examples](examples/README.md). To use a configuration from examples you can run `bun cli.js examples/my-config/config.jsonc`
+Run `bun cli.js` for an interactive setup or see [examples](examples/README.md). To use a configuration from examples you can run `bun cli.js examples/my-config/config.jsonc`.
+```
+git clone https://github.com/Explosion-Scratch/firebuilder
+cd firebuilder
+# Or if you want to use my config with no interactivity: bun cli.js examples/my-config/config.jsonc --launch`
+bun cli.js
+```
