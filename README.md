@@ -5,7 +5,7 @@
         <img src="img.png" width=800 alt="Demo Image 😁"/>
     </a>
     <hr>
-    <center><i>The end-all firefox configurator!</i></center>
+    <center><i>The end-all firefox configurator! - See <a href="https://asciinema.org/a/671838">it in action</a></i></center>
 </div>
 
 Basically an interactive CLI program that generates a [`config.json` file](examples/my-config/config.jsonc) which is then processed and [built into](run.js) a Firefox Profile folder.
