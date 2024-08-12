@@ -55,7 +55,7 @@
       "description": "Remove sponsors from URL bar",
       "defaultEnabled": true
     },
-    "requireSecure": {
+    "requireSecure.js": {
       "description": "Upgrade all connections and enforce https"
     },
     "peskyfox.js": {

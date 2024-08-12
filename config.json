@@ -1,0 +1,50 @@
+{
+  "repos": {
+    "enabled": [
+      "materialfox.json"
+    ]
+  },
+  "custom-js": {
+    "isEnabled": true
+  },
+  "css": {
+    "enabled": [
+      "macos-native-tabbar.css",
+      "sliding-bookmarks-menu.css",
+      "cleaner_extensions_menu.css",
+      "remove_min_max_close.css",
+      "no_search_engines_in_url_bar.css",
+      "privacy_change_email_text.css",
+      "show_searchbar_dots_only_on_hover.css",
+      "ublock_icon_change.css"
+    ]
+  },
+  "extensions": {
+    "enabled": [
+      "ublock.json",
+      "bitwarden.json",
+      "tabliss.json"
+    ]
+  },
+  "userjs": {
+    "enabled": [
+      "disableCaptivePortal.js",
+      "disableNewtab.js",
+      "disableContentBlockingReports.js",
+      "disableCrashReports.js",
+      "disablePasswords.js",
+      "disableSafeBrowsing.js",
+      "disableStudies.js",
+      "disableTelemetry.js",
+      "dontWarnOnQuit.js",
+      "enableCustomization.js",
+      "geolocation.js",
+      "quieterfox.js",
+      "removeSponsored.js",
+      "requireSecure.js",
+      "peskyfox.js"
+    ]
+  },
+  "extendProfile": false,
+  "outputsPath": "outputs/profile"
+}
