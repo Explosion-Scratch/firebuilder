@@ -21,6 +21,7 @@ Basically an interactive CLI program that generates a [`config.json` file](examp
 - 🫥 **Start with defaults (or not)**: You can start customizing based on [sensible defaults](examples/extend-default/config.jsonc) or [vanilla firefox](examples/vanilla-firefox/config.jsonc)
 
 ## **Getting started**:
+**Note:** The binaries are from a few commits ago and have a bug so please clone then use bun to run it. I'll upload binaries again once I have enough mobile data to do so
 
 Download a binary for your platform from [`dist`](/dist)
 
