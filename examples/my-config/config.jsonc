@@ -1,0 +1,56 @@
+{
+  "extendProfile": {
+    "path": "~/Library/Application Support/Firefox/Profiles/193rurer.default-release-1717101583037/",
+    "bookmarks": true,
+    "history": true,
+    "passwords": true,
+    "cookies": false,
+    "extensions": false
+  },
+  // // I like the regular theme for now but this one is great. Hats of to the
+  // // creator =) 
+  
+  "repos": ["materialfox.json"],
+  "extensions": {
+    "extend": ["tabliss.json", "bitwarden.json"]
+  },
+  "css": {
+    "extend": [
+      "macos-native-tabbar.css",
+      "sliding-bookmarks-menu.css",
+      "cleaner_extensions_menu.css",
+      "remove_min_max_close.css"
+    ]
+  },
+  "userjs": {
+    "extend": ["disableAutoUpdate.js", "disablePasswords.js", "geolocation.js"]
+  },
+  "outputsPath": "outputs/profile",
+  "custom-js": {
+    "isEnabled": true,
+    "options": {
+      "sources": {
+        // Sources are in the form [url]: {options}
+        "https://github.com/aminomancer/uc.css.js": {
+          // Name of the repo
+          "name": "uc.css.js",
+          // ID, repo will be cloned at outputsPath/repos/[id]
+          "id": "uccssjs",
+          // Files within the repo to copy to outputsPath/chrome/JS
+          "enabled": [
+            "JS/clearDownloadsButton.uc.js",
+            "JS/findbarMods.uc.js",
+            "JS/updateNotificationSlayer.uc.js"
+          ]
+        }
+      }
+    }
+  },
+  "prefs": {
+    "network.trr.custom_uri": "https://dns.quad9.net/dns-query",
+    "network.trr.mode": 2,
+    "network.trr.uri": "https://dns.quad9.net/dns-query",
+    "devtools.toolbox.host": "right",
+    "devtools.debugger.remote-enabled": true
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "title": "CSS Customization",
+  "description": "Customize the firefox UI with css",
+  "handler": "handlers/usercss.js",
+  "buildOrder": 10,
+  "modules": {
+    "macos-native-tabbar.css": {
+      "description": "Enable translucency in the tab bar on mac",
+      "defaultEnabled": true
+    },
+    "sliding-bookmarks-menu.css": {
+      "description": "Auto-hide bookmarks menu and show on hover"
+    },
+    "cleaner_extensions_menu.css": {
+      "description": "Cleaner extensions menu"
+    },
+    "hide-solo-tab.css": {
+      "description": "Hide tabs bar when there's only 1 tab"
+    },
+    "min-max-close_buttons.css": {
+      "description": "Use macOS style min, max and close buttons"
+    },
+    "remove_min_max_close.css": {
+      "description": "Remove the min, max and close buttons"
+    },
+    "no_search_engines_in_url_bar.css": {
+      "description": "Turn off icons for 'Search with __' in the URL bar",
+      "defaultEnabled": true
+    },
+    "privacy_change_email_text.css": {
+      "description": "Replace email in menu with 'Firefox account' instead",
+      "defaultEnabled": true
+    },
+    "show_searchbar_dots_only_on_hover.css": {
+      "description": "Show search bar dots (on the side of the URL bar) only on hover",
+      "defaultEnabled": true
+    },
+    "ublock_icon_change.css": {
+      "description": "Change uBlock icon to a SVG",
+      "defaultEnabled": true
+    }
+  }
+}

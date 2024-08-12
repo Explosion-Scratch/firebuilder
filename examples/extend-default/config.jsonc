@@ -1,0 +1,17 @@
+{
+    "userjs": {
+        // This keeps the existing defaults (found in modules/userjs/index.json)
+        // enabled As of the time of writing current defaults include disable
+        // telemetry, studies and mozilla promotions
+        "extend": ["blockImplicitOutbound.js", "disableCaptivePortal.js", "disablePasswords.js"]
+    },
+    // This same .extend can be applied to anywhere you can use .enabled. The
+    // .enabled property sets what is enabled (without defaults included) and
+    // .extend extends those defaults. When using the CLI tool .enabled is
+    // generated but defaults are pre-selected
+    "css": {
+        // Add sliding bookmarks menu, leave defaults of ublock icon change,
+        // privacy email text, etc
+        "extend": ["sliding-bookmarks-menu.css"]
+    }
+}

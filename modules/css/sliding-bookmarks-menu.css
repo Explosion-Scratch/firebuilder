@@ -1,0 +1,84 @@
+/* ----------------------------- */
+/* Firefox Sliding Bookmarks Bar */
+/* ----------------------------- */
+:root {
+  --toolbar-offset-height: 42px;
+}
+
+#PersonalToolbar:not([customizing]) {
+  position: absolute !important;
+  bottom: 0 !important;
+  padding-bottom: 5px !important;
+  height: auto !important;
+  width: 100% !important;
+  border: none !important;
+  border-bottom: 0.01px var(--tabs-navbar-separator-style) ThreeDShadow !important;
+  box-shadow: 0 1px 0 0 light-dark(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
+  transform: translateY(0%) scaleY(1);
+  transform-origin: center bottom;
+  transition: transform cubic-bezier(0.05, 0.79, 0.15, 1) 0.3s !important;
+  z-index: 2;
+}
+
+#PersonalToolbar:not([customizing]) #personal-bookmarks {
+  opacity: 0;
+  transform: translateY(100%) scaleY(1);
+  transform-origin: center bottom;
+  transition: opacity 0.15s, transform cubic-bezier(0.05, 0.79, 0.15, 1) 0.3s;
+}
+
+/* prevent 1px border in selected tab */
+#titlebar {
+  z-index: 4 !important;
+}
+
+#nav-bar {
+  z-index: 3 !important;
+}
+
+/* bring up nav-bar z-index when megabar is open */
+#nav-bar[urlbar-exceeds-toolbar-bounds="true"] {
+  z-index: 5 !important;
+}
+
+.tabbrowser-tab[selected="true"] {
+  z-index: 4 !important;
+}
+
+#navigator-toolbox:hover > #PersonalToolbar:not([customizing]) {
+  position: absolute !important;
+  transform: translateY(100%) scaleY(1);
+  box-shadow: 0 1px 0 0 light-dark(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.9));
+}
+#navigator-toolbox:has([open="true"]) > #PersonalToolbar:not([customizing]) {
+  position: absolute !important;
+  transform: translateY(100%) scaleY(1);
+}
+
+#navigator-toolbox:hover
+  > #PersonalToolbar:not([customizing])
+  #personal-bookmarks {
+  transform: translateY(0%) scaleY(1);
+  opacity: 1;
+}
+#navigator-toolbox:has([open="true"])
+  > #PersonalToolbar:not([customizing])
+  #personal-bookmarks {
+  transform: translateY(0%) scaleY(1);
+  opacity: 1;
+}
+
+/* z-index override for notification bar */
+.notificationbox-stack[notificationside="top"] {
+  z-index: 2 !important;
+}
+
+#PlacesToolbarItems > toolbarseparator:before {
+  opacity: 0.8 !important;
+}
+
+.bookmark-item > .toolbarbutton-icon,
+.bookmark-item > .menu-iconic-left > .menu-iconic-icon {
+  will-change: transform !important;
+  image-rendering: optimizequality !important;
+}

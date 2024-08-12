@@ -1,0 +1,7 @@
+{
+  "url": "https://github.com/ideaweb/firefox-safari-style",
+  "name": "Safari Style",
+  "id": "safari-style",
+  "description": "Safari like",
+  "userChrome": "@import url('./css/userChrome-vibrancy.css');"
+}

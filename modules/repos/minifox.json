@@ -1,0 +1,13 @@
+{
+  "title": "Minifox",
+  "id": "minifox",
+  "description": "A keyboard driven Firefox theme focused on minimalism and good looks.",
+  "url": "https://codeberg.org/awwpotato/MiniFox",
+  "prefs": {
+    "uc.tweak.round-browser": true,
+    "uc.tweak.translucency": false,
+    "uc.tweak.no-window-controls": true,
+    "uc.tweak.browser-margins": true,
+    "uc.tweak-bottom-nav": false
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Firefox UWP Style",
+  "id": "uwp",
+  "description": "Windows native theme",
+  "url": "https://github.com/Guerra24/Firefox-UWP-Style",
+  "prefs": {
+    "uwp.sun-valley": false,
+    "uwp.sun-valley.font": false,
+    "uwp.sun-valley.round-tabs": false,
+    "uwp.sun-valley.colored-tabs": false
+  }
+}

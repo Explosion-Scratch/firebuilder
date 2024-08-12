@@ -1,0 +1,20 @@
+{
+  "name": "firebuilder",
+  "description": "Firefox profile, themes, userCSS and userChrome builder",
+  "module": "index.js",
+  "type": "module",
+  "main": "cli.js",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "scripts": {
+    "build": "bun build --compile ./cli.js --outfile dist/firebuilder-creator-darwin-arm64 --target bun-darwin-arm64 && bun build --compile ./cli.js --outfile dist/firebuilder-creator-darwin-x64 --target bun-darwin-x64 && bun build --compile ./cli.js --outfile dist/firebuilder-creator-linux-x64 --target bun-linux-x64 && bun build --compile ./cli.js --outfile dist/firebuilder-creator-linux-arm64 --target bun-linux-arm64 && bun build --compile ./cli.js --outfile dist/firebuilder-creator-windows-x64 --target bun-windows-x64"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "inquirer": "^10.1.8",
+    "meow": "^13.2.0"
+  }
+}

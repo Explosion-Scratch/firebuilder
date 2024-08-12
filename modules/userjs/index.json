@@ -1,0 +1,66 @@
+{
+  "title": "User.js Customizations",
+  "description": "Customize firefox preferences via defaults",
+  "handler": "handlers/user.js",
+  "buildOrder": 0,
+  "modules": {
+    "blockImplicitOutbound.js": {
+      "description": "Block implicit outbound connections, e.g. link prefetching"
+    },
+    "disableCaptivePortal.js": {
+      "description": "Disable captive portal (network login required) detection"
+    },
+    "disableNewtab.js": {
+      "description": "Disable new tab page"
+    },
+    "disableContentBlockingReports.js": {
+      "description": "Disable content blocking reports",
+      "defaultEnabled": true
+    },
+    "disableCrashReports.js": {
+      "description": "Disable crash reports",
+      "defaultEnabled": true
+    },
+    "disablePasswords.js": {
+      "description": "Disable password manager"
+    },
+    "disableSafeBrowsing.js": {
+      "description": "Disable safe browsing",
+      "defaultEnabled": true
+    },
+    "disableStudies.js": {
+      "description": "Disable studies",
+      "defaultEnabled": true
+    },
+    "disableTelemetry.js": {
+      "description": "Disable telemetry",
+      "defaultEnabled": true
+    },
+    "dontWarnOnQuit.js": {
+      "description": "Don't warn on quit",
+      "defaultEnabled": true
+    },
+    "enableCustomization.js": {
+      "description": "Enable customization of the browser",
+      "defaultEnabled": true
+    },
+    "geolocation.js": {
+      "description": "Change geolocation provider from google to mozilla"
+    },
+    "quieterfox.js": {
+      "description": "Silence lots of warnings, welcomes, etc",
+      "defaultEnabled": true
+    },
+    "removeSponsored.js": {
+      "description": "Remove sponsors from URL bar",
+      "defaultEnabled": true
+    },
+    "requireSecure": {
+      "description": "Upgrade all connections and enforce https"
+    },
+    "peskyfox.js": {
+      "description": "Many tweaks from BetterFox to remove Mozilla related features",
+      "defaultEnabled": true
+    }
+  }
+}

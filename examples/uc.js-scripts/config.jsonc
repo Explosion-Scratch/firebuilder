@@ -1,0 +1,26 @@
+{
+  "outputsPath": "outputs/profile",
+  // By default fx-autoconfig is disabled - Enable it like so
+  "custom-js": {
+    "isEnabled": true,
+    "options": {
+      "sources": {
+        // Sources are in the form [url]: {options}
+        "https://github.com/aminomancer/uc.css.js": {
+          // Name of the repo
+          "name": "uc.css.js",
+          // ID, repo will be cloned at outputsPath/repos/[id]
+          "id": "uccssjs",
+          // Files within the repo to copy to outputsPath/chrome/JS
+          "enabled": [
+            "JS/clearDownloadsButton.uc.js",
+            "JS/findbarMods.uc.js",
+            "JS/privateTabs.uc.js",
+            "JS/updateNotificationSlayer.uc.js",
+            "JS/animateContextMenus.uc.js"
+          ]
+        }
+      }
+    }
+  }
+}

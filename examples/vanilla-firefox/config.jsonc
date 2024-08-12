@@ -1,0 +1,14 @@
+// This configuration should result in vanilla firefox, no additions or customizations
+{
+  // When a .enabled property is not set the array gets transformed
+  // contentcss: [] == contentcss: {enabled: []}
+  "contentcss": [],
+  "css": [],
+  // This is the default so we don't need to include it
+  // "custom-js": {"isEnabled": false}
+  "repos": [],
+  "userjs": [],
+  "extensions": []
+
+  //   See examples/extend-default/config.jsonc for how to extend defaults
+}

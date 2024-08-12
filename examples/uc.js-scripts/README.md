@@ -1,0 +1,2 @@
+# Install from [uc.css.js](https://github.com/aminomancer/uc.css.js/)
+Install custom userscripts from a git source. The URLs in `.sources` will be cloned then the relevant files copied to `outputsPath/chrome/JS`. This requires the `userjs` module to be enabled (`userjs.isEnabled` in config)

@@ -1,0 +1,49 @@
+{
+  "extendProfile": {
+    "path": "/Users/tjs/Library/Application Support/Firefox/Profiles/193rurer.default-release-1717101583037/",
+    "bookmarks": true,
+    "history": true,
+    "passwords": true,
+    "cookies": true,
+    "extensions": true
+  },
+  "userjs": {
+    "enabled": [
+      "disableAutoUpdate.js",
+      "disableCaptivePortal.js",
+      "disableContentBlockingReports.js",
+      "disableCrashReports.js",
+      "disablePasswords.js",
+      "disableSafeBrowsing.js",
+      "disableStudies.js",
+      "disableSync.js",
+      "disableTelemetry.js",
+      "enableCustomization.js",
+      "geolocation.js",
+      "peskyfox.js",
+      "quieterfox.js",
+      "removeSponsored.js"
+    ]
+  },
+  "repos": ["materialfox.json"],
+  "extensions": {
+    "enabled": ["tabliss.json", "ublock.json", "bitwarden.json"]
+  },
+  "css": {
+    "enabled": [
+      "macos-native-tabbar.css",
+      "ublock_icon_change.css",
+      "privacy_change_email_text.css",
+      "remove_min_max_close.css",
+      "no_search_engines_in_url_bar.css",
+      "show_searchbar_dots_only_on_hover.css",
+      "sliding-bookmarks-menu.css",
+      "icons_in_main_menu.css",
+      "cleaner_extensions_menu.css"
+    ]
+  },
+  "outputsPath": "outputs/profile",
+  "custom-js": {
+    "isEnabled": false
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Tabliss - New Tab",
+  "slug": "tabliss",
+  "id": "extension@tabliss.io",
+  "uuid": "30c2ec9c-9db7-4505-b7c2-3a172b440edf",
+  "prefs": {
+    "browser.startup.homepage_override.extensionControlled": true,
+    "browser.startup.homepage_override.privateAllowed": false,
+    "extensions.ui.dictionary.hidden": true,
+    "extensions.ui.lastCategory": "addons://list/extension",
+    "extensions.ui.sitepermission.hidden": true
+  }
+}

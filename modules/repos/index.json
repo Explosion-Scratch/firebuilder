@@ -1,0 +1,26 @@
+{
+  "title": "Git repo based customizations",
+  "description": "Install customizations from a git repository",
+  "handler": "handlers/repo.js",
+  "buildOrder": 10,
+  "modules": {
+    "minifox.json": {
+      "description": "Minifox Theme"
+    },
+    "animatedfox.json": {
+      "description": "AnimatedFox Theme"
+    },
+    "materialfox.json": {
+      "description": "MaterialFox Theme"
+    },
+    "safari-style.json": {
+      "description": "Safari Style"
+    },
+    "uwp.json": {
+      "description": "UWP (windows) Theme"
+    },
+    "wavefox.json": {
+      "description": "WaveFox Theme"
+    }
+  }
+}

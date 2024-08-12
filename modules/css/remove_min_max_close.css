@@ -1,0 +1,4 @@
+/* Remove close button*/
+.titlebar-buttonbox-container {
+  display: none;
+}

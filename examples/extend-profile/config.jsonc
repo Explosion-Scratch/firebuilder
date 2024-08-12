@@ -1,0 +1,15 @@
+{
+  "extendProfile": {
+    // ~ is replaced with homedir
+    "path": "~/Library/Application Support/Firefox/Profiles/193rurer.default-release-1717101583037/",
+    // Choose what to port over. Note: Bookmarks and history are tied together,
+    // you have to enable both. (They're both stored in
+    // profileFolder/places.sqlite)
+    "bookmarks": true,
+    "history": true,
+    // Pick and choose =) This copies, not moves. Your existing profile will be fine
+    "passwords": true,
+    "cookies": true,
+    "extensions": true
+  }
+}

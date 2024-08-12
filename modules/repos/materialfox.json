@@ -1,0 +1,7 @@
+{
+    "name": "Materialfox",
+    "url": "https://github.com/edelvarden/material-fox-updated",
+    "description": "Updated version of MaterialFox (Chrome style)",
+    "id": "materialfox",
+    "useReleases": "chrome.zip"
+}

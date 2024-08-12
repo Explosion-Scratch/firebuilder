@@ -1,0 +1,1 @@
+user_pref("app.update.auto", false);

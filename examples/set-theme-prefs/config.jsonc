@@ -1,0 +1,28 @@
+{
+  "repos": [
+    [
+      "minifox.json",
+      {
+        "prefs": {
+          // Set about:config preferences for this theme
+          "uc.tweak.translucency": true
+        }
+      }
+    ]
+  ],
+  //   OR:
+  "repos": [
+    [
+      "safari-style.json",
+      {
+        // This theme requires adding a custom @import url line to the
+        // userChrome.css, this is already defined in modules/safari-style.json,
+        // but we can override it here to follow the Adaptive Tab Color themeing
+        // Note: The URL is relative to the repo clone directory.
+        // This creates a new customUserChrome.css file then @imports it in the main userChrome.css
+        "userChrome": "@import url('./css/userChrome-theme.css');"
+      }
+    ]
+  ],
+  "outputsPath": "outputs/profile"
+}

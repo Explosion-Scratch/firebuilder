@@ -1,0 +1,22 @@
+{
+    "title": "Extensions Customization",
+    "description": "Enable extensions",
+    "handler": "handlers/extensions.js",
+    "buildOrder": 10,
+    "modules": {
+        "ublock.json": {
+            "description": "Enable uBlock Origin",
+            "defaultEnabled": true
+        },
+        "adaptive-tab-color.json": {
+            "description": "Enable Adaptive Tab Color"
+        },
+        "bitwarden.json": {
+            "description": "Enable Bitwarden"
+        },
+        "tabliss.json": {
+            "description": "Enable Tabliss"
+        } 
+    }
+  }
+  

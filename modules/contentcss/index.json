@@ -1,0 +1,7 @@
+{
+  "title": "userContent CSS Customization",
+  "description": "Style internal firefox pages",
+  "handler": "handlers/contentcss.js",
+  "buildOrder": 10,
+  "modules": {}
+}
