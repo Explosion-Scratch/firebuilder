@@ -1,4 +1,4 @@
-# Firefox Profile Creator
+# Firefox Profile Creator - Build the best firefox in seconds!
 
 <div align=center>
     <a href="img.png">
@@ -7,6 +7,8 @@
     <hr>
     <center><i>The end-all firefox configurator!</i></center>
 </div>
+
+Basically an interactive CLI program that generates a [`config.json` file](examples/my-config/config.jsonc) which is then processed and [built into](run.js) a Firefox Profile folder.
 
 ## **Features**:
 
