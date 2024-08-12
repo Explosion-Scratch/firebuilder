@@ -1,12 +1,12 @@
 # Firefox Profile Creator
 
-<center>
+<div align=center>
     <a href="img.png">
-        <img src="img.png" width=700 alt="Demo Image 😁"/>
+        <img src="img.png" width=800 alt="Demo Image 😁"/>
     </a>
     <hr>
     <center><i>The end-all firefox configurator!</i></center>
-</center>
+</div>
 
 ## **Features**:
 
