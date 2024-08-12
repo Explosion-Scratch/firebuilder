@@ -7,8 +7,24 @@ import log from "./helpers/log";
 import run from "./run";
 import { spawn, execSync } from "child_process";
 import { parseArgs } from "util";
+import { homedir } from "os";
 
 const NAME = `firefox-profile-creator`;
+// TODO: Make work with other OSes
+const APP_PATH = join(
+  "/Applications",
+  "Firefox.app",
+  "Contents",
+  "MacOS",
+  "firefox"
+);
+const PROFILES_PATH = resolve(
+  homedir(),
+  "Library",
+  "Application Support",
+  "Firefox",
+  "Profiles"
+);
 const args = parseArgs({
   args: Bun.argv,
   options: {
@@ -20,12 +36,15 @@ const args = parseArgs({
 });
 const PROFILE_PATH_CLI = args.positionals[2];
 
+const THIS_DIR = __dirname;
+const MODULE_DIR = resolve(THIS_DIR, "modules");
+
 const OPTIONS = Object.fromEntries(
-  readdirSync("modules")
-    .filter((i) => lstatSync(join("modules", i)).isDirectory())
+  readdirSync(resolve(MODULE_DIR))
+    .filter((i) => lstatSync(join(MODULE_DIR, i)).isDirectory())
     .map((i) => ({
       id: i,
-      info: readJSON(join("modules", i, "index.json")),
+      info: readJSON(resolve(MODULE_DIR, i, "index.json")),
     }))
     .map((i) => [i.id, i.info])
 );
@@ -33,7 +52,7 @@ const OPTIONS = Object.fromEntries(
 const questions = [
   ...Object.entries(OPTIONS)
     .map(([k, v]) => {
-      const index = readJSON(join("modules", k, "index.json"));
+      const index = readJSON(resolve(MODULE_DIR, k, "index.json"));
 
       if (!v.modules) {
         return {
@@ -53,7 +72,7 @@ const questions = [
         message: v.title,
         loop: false,
         choices: Object.entries(v.modules).map(([k2, v2]) => {
-          const possiblejson = join("modules", k, k2);
+          const possiblejson = join(MODULE_DIR, k, k2);
           const j = {
             ...index.modules[k2],
             ...(extname(possiblejson) == ".json" ? readJSON(possiblejson) : {}),
@@ -77,11 +96,16 @@ const questions = [
     default: false,
   },
   {
-    type: "input",
+    type: "list",
     name: "extendProfile.path",
     when: (a) => a.extendProfile,
-    message:
-      "Enter the path to the profile to extend, e.g. ~/Library/Application Support/Firefox/Profiles/...",
+    message: "Choose a profile to extend",
+    choices: readdirSync(PROFILES_PATH)
+      .filter((i) => lstatSync(resolve(PROFILES_PATH, i)).isDirectory())
+      .map((i) => ({
+        value: resolve(PROFILES_PATH, i),
+        name: i,
+      })),
   },
   {
     type: "checkbox",
@@ -129,7 +153,7 @@ const confirm = async (q) => {
 };
 
 let results;
-const conf_path = PROFILE_PATH_CLI || "config.json";
+const conf_path = resolve(PROFILE_PATH_CLI || "./config.json");
 
 if (
   existsSync(conf_path) &&
@@ -143,6 +167,7 @@ if (
 if (!results.outputsPath) {
   results.outputsPath = "outputs/profile";
 }
+results.outputsPath = resolve(results.outputsPath);
 if (results.extendProfile) {
   results.extendProfile = {
     path: results.extendProfile.path,
@@ -155,15 +180,14 @@ if (results.extendProfile) {
 log.info("Writing profile config to " + resolve("./config.json"));
 writeFileSync("config.json", JSON.stringify(results, null, 2));
 
-if (await confirm(`Build profile to ${resolve(results.outputsPath)} now?`)) {
+if (await confirm(`Build profile to ${results.outputsPath} now?`)) {
   await run(results);
   if (
     PROFILE_PATH_CLI ? args.values.launch : await confirm("Open firefox now?")
   ) {
     log.debug('Launching profile at "' + results.outputsPath + '"');
     const firefoxPath =
-      tc(() => execSync("which firefox").toString().trim()) ||
-      "/Applications/Firefox.app/Contents/MacOS/firefox";
+      tc(() => execSync("which firefox").toString().trim()) || APP_PATH;
     setTimeout(() => process.exit(0), 1000);
     spawn(firefoxPath, ["--profile", results.outputsPath], {
       detached: true,

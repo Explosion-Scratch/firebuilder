@@ -24,9 +24,11 @@ const HANDLERS = {
 
 const exec = require("util").promisify(require("child_process").exec);
 
+const THIS_DIR = __dirname;
+const MODULE_DIR = resolve(THIS_DIR, "modules");
+
 const directories = {
-  modules: "modules",
-  current: import.meta.dirname,
+  modules: MODULE_DIR,
 };
 
 export default async function run(config) {
@@ -96,7 +98,7 @@ export default async function run(config) {
     }
   }
 
-  const allModules = readdirSync("modules")
+  const allModules = readdirSync(directories.modules)
     .filter((i) => lstatSync(join(directories.modules, i)).isDirectory())
     .map((i) => ({
       directory: resolve(join(directories.modules, i)),

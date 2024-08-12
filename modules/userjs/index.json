@@ -61,6 +61,10 @@
     "peskyfox.js": {
       "description": "Many tweaks from BetterFox to remove Mozilla related features",
       "defaultEnabled": true
+    },
+    "nicerfirefox.js": {
+      "description": "Misc. tweaks from peskyfox",
+      "defaultEnabled": true
     }
   }
 }
