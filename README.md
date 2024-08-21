@@ -33,3 +33,10 @@ cd firebuilder
 # Or if you want to use my config with no interactivity: bun cli.js examples/my-config/config.jsonc --launch`
 bun cli.js
 ```
+
+## Contributing
+- See [CONTRIBUTING.md](CONTRIBUTING.md) for details. Basically it's pretty simple, add your thing via a json/js file and make sure it has a handler
+
+
+## Want something added?
+Just ask me (in an issue) I'll try to add it or make a PR!
