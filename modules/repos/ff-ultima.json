@@ -1,0 +1,76 @@
+{
+  "name": "FF Ultima",
+  "description": "The Firefox theme with too many options",
+  "id": "ff-ultima",
+  "url": "https://github.com/soulhotel/FF-ULTIMA",
+  "useReleases": "ffultima",
+  "prefs": {
+    // color schemes
+    // default dark mode
+    "user.theme.dark.a": true,
+    // default light mode
+    "user.theme.light.a": true,
+    "user.theme.dark.catppuccin": false,
+    "user.theme.dark.catppuccin-mocha": false,
+    "user.theme.dark.gruvbox": false,
+    "user.theme.light.gruvbox": false,
+    "user.theme.dark.midnight": false,
+
+    // tabs
+    "ultima.tabs.vertical": true,
+    "ultima.tabs.size.xs": false,
+    "ultima.tabs.size.s": false,
+    "ultima.tabs.size.l": true,
+    "ultima.tabs.autohide": true,
+    "ultima.tabs.closetabsbutton": false,
+    "ultima.tabs.vertical.hide": false,
+    "ultima.tabs.vertical.onlyprivate": false,
+    "ultima.tabs.vertical.rightside": false,
+
+    // sidebar
+    "ultima.sidebar.autohide": false,
+    "ultima.sidebery.autohide": false,
+    "ultima.sidebar.hidden": false,
+    "ultima.sidebar.longer": false,
+
+    // extension theme on-off
+    "ultima.theme.extensions": true,
+
+    // url bar
+    "ultima.urlbar.suggestions": true,
+    "ultima.urlbar.centered": true,
+    "ultima.urlbar.hidebuttons": false,
+    "ultima.xstyle.urlbar": false,
+
+    // alternate styles
+    "ultima.xstyle.containertabs.i": false,
+    "ultima.xstyle.containertabs.ii": false,
+    "ultima.xstyle.containertabs.iii": true,
+    "ultima.xstyle.squared": false,
+    "ultima.xstyle.squished": false,
+    // Experimental. To counter addon themes that use unusual color variables.
+    "ultima.xstyle.lwtheme": false,
+    // Experimental. Havent decided on style yet.
+    "ultima.xstyle.pinnedtabs.i": false,
+
+    // specific OS overrides (like titlebar buttons)
+    "ultima.OS.kde": true,
+    "ultima.OS.gnome": false,
+    "ultima.OS.mac": false,
+    "ultima.OS.kde.wds": false,
+    // this is enough to give linux users ~options~, any further finetuning should be done by the user.
+    "ultima.OS.gnome.wds": false,
+    "ultima.OS.gnome.wdl": false,
+    "ultima.OS.notitlebar": false,
+
+    // other
+    "browser.aboutConfig.showWarning": false,
+    "toolkit.legacyUserProfileCustomizations.stylesheets": true,
+    "devtools.debugger.remote-enabled": true,
+    "devtools.chrome.enabled": true,
+    "devtools.debugger.prompt-connection": false,
+    "svg.context-properties.content.enabled": true,
+    "toolkit.tabbox.switchByScrolling": false,
+    "browser.tabs.hoverPreview.enabled": true
+  }
+}
