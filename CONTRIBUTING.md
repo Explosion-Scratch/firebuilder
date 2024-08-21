@@ -14,7 +14,7 @@
 
 Modules are stored in the [modules/whatever](modules) folder. Inside these folders there can be files (of any type) whoose selected filenames are then passed to `handlers/whatever.js`. `index.json` should have info for each module:
 
-```json
+```jsonc
 {
   "title": "Title of your new addition, e.g. Custom CSS",
   "description": "An optional description shown in the CLI",
