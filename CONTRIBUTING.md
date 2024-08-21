@@ -35,3 +35,8 @@ Modules are stored in the [modules/whatever](modules) folder. Inside these folde
   }
 }
 ```
+
+## Principles to follow:
+- Each module should be one group of features the user can toggle on and off
+- The same config file should result in the same output profile.
+- Be careful what you enable by default: The default profile outputted from this tool should be clean and devoid of bloat, but not have many added features, think the ungoogled-chromium of firefox
