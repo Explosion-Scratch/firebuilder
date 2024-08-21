@@ -34,21 +34,24 @@ const directories = {
 export default async function run(config) {
   console.assert(
     (await exec('echo "hello world"').then((r) => r.stdout?.trim())) ==
-      "hello world"
+      "hello world",
   );
   config = {
     outputsPath: "outputs/profile",
     ...config,
   };
 
-  rmdirSync(config.outputsPath, { recursive: true });
+  if (existsSync(config.outputsPath)) {
+    console.error("Outputs path already exists");
+    process.exit(1);
+  }
 
   const profilePath = resolve(config.outputsPath);
 
   if (config.extendProfile) {
     config.extendProfile.path = config.extendProfile.path.replace(
       /^\~/,
-      homedir()
+      homedir(),
     );
     const path = resolve(config.extendProfile.path);
     if (config.extendProfile.bookmarks && config.extendProfile.history) {
@@ -76,23 +79,23 @@ export default async function run(config) {
         resolve(profilePath, "extension-store"),
         {
           recursive: true,
-        }
+        },
       );
       cpSync(
         resolve(path, "extension-store-menus"),
         resolve(profilePath, "extension-store-menus"),
         {
           recursive: true,
-        }
+        },
       );
       for (let ext of readdirSync(resolve(path, "storage", "default")).filter(
-        (i) => i.startsWith("moz-extension++")
+        (i) => i.startsWith("moz-extension++"),
       )) {
         ensureFolder(resolve(profilePath, "storage", "default"));
         cpSync(
           resolve(path, "storage", "default", ext),
           resolve(profilePath, "storage", "default", ext),
-          { recursive: true }
+          { recursive: true },
         );
       }
     }

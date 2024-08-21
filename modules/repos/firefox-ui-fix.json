@@ -1,0 +1,8 @@
+{
+  "name": "Firefox-UI-Fix",
+  "description": "Improvement to proton UI.",
+  "url": "https://github.com/black7375/Firefox-UI-Fix",
+  // You can also choose Lepton-Photon-Style or Lepton-Proton-Style or ESR-[same here]
+  "useReleases": "Lepton.zip",
+  "id": "firefox-ui-fix"
+}
