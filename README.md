@@ -9,6 +9,8 @@
 </div>
 <br><br>
 
+**Note:**: For now build from source (clone then `bun run cli.js` or `bun run build`, I'll make a release soon.
+
 Basically an interactive CLI program that generates a [`config.json` file](examples/my-config/config.jsonc) which is then processed and [built into](run.js) a Firefox Profile folder.
 
 ## **Features**:
