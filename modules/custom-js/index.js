@@ -4,6 +4,7 @@ import { promisify } from "util";
 import { resolve, join, basename } from "path";
 import readJSON from "../../helpers/readJson";
 import onExit from "../../helpers/onExit";
+import getFirefoxPaths from "../../helpers/firefoxPaths";
 
 const exec = promisify(_exec);
 
@@ -24,10 +25,10 @@ export default async function handle({
   });
   await exec(
     `git clone "https://github.com/MrOtherGuy/fx-autoconfig" ${JSON.stringify(
-      folder
-    )}`
+      folder,
+    )}`,
   );
-  const resources = resolve(appPath, "Contents", "Resources");
+  const resources = getFirefoxPaths().RESOURCES_PATH;
   cpSync(join(folder, "program"), resources, { recursive: true });
   cpSync(join(folder, "profile", "chrome"), resolve(profilePath, "chrome"), {
     recursive: true,
@@ -39,7 +40,7 @@ export default async function handle({
     for (let file of details.enabled) {
       cpSync(
         join(dest, file),
-        join(profilePath, "chrome", "JS", basename(file))
+        join(profilePath, "chrome", "JS", basename(file)),
       );
     }
   }
