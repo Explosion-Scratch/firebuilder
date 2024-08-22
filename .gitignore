@@ -175,3 +175,5 @@ out
 
 outputs
 !repos
+
+config.json

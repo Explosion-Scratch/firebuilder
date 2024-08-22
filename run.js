@@ -1,4 +1,4 @@
-import { cpSync, lstatSync, readdirSync, readFileSync, rmdirSync } from "fs";
+import { cpSync, lstatSync, readdirSync, existsSync } from "fs";
 import { join, resolve } from "path";
 import readJSON from "./helpers/readJson";
 import { ensureFolder } from "./helpers/ensure";

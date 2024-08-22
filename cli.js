@@ -1,5 +1,5 @@
 import inquirer from "inquirer";
-import { lstatSync, readdirSync, writeFileSync, existsSync } from "fs";
+import { lstatSync, readdirSync, writeFileSync, existsSync, readdir } from "fs";
 import meow from "meow";
 import readJSON from "./helpers/readJson";
 import { extname, join, resolve } from "path";
@@ -16,14 +16,14 @@ const APP_PATH = join(
   "Firefox.app",
   "Contents",
   "MacOS",
-  "firefox"
+  "firefox",
 );
 const PROFILES_PATH = resolve(
   homedir(),
   "Library",
   "Application Support",
   "Firefox",
-  "Profiles"
+  "Profiles",
 );
 const args = parseArgs({
   args: Bun.argv,
@@ -31,10 +31,20 @@ const args = parseArgs({
     launch: {
       type: "boolean",
     },
+    help: {
+      type: "boolean",
+      short: "h",
+    },
+    output: {
+      type: "string",
+      short: "o",
+    }
   },
   allowPositionals: true,
 });
 const PROFILE_PATH_CLI = args.positionals[2];
+
+const OUTPUT_PATH_CLI = args.values.output ? resolve(args.values.output) : null;
 
 const THIS_DIR = __dirname;
 const MODULE_DIR = resolve(THIS_DIR, "modules");
@@ -46,7 +56,7 @@ const OPTIONS = Object.fromEntries(
       id: i,
       info: readJSON(resolve(MODULE_DIR, i, "index.json")),
     }))
-    .map((i) => [i.id, i.info])
+    .map((i) => [i.id, i.info]),
 );
 
 const questions = [
@@ -82,7 +92,7 @@ const questions = [
             checked: !!j.defaultEnabled,
             name: `${v2.description}${fmt(
               v2.description == j.description ? null : j.description,
-              " - "
+              " - ",
             )}`,
           };
         }),
@@ -119,15 +129,15 @@ const questions = [
         value: i,
         checked: i !== "cookies",
         name: i[0].toUpperCase() + i.slice(1),
-      })
+      }),
     ),
   },
-  {
+  ...(OUTPUT_PATH_CLI ? ([]) : ([{
     type: "input",
     name: "outputsPath",
     default: "outputs/profile",
     message: "Profile output path",
-  },
+  }])),
 ];
 const tc = (fn) => {
   try {
@@ -152,6 +162,31 @@ const confirm = async (q) => {
     .then((a) => a.conf);
 };
 
+// TODO: Positional ags:
+/*
+${Object.entries(OPTIONS)
+  .map((i) => `--${i[0]}:`.padEnd(20) + i[1].title)
+  .join("\n      ")}
+*/
+const showHelp = () => {
+  console.log(`
+    Usage:
+        ${NAME} [options] [config file path] [output file path]
+
+    Note: All arguments are optional, this is an interactive tool mainly.
+    
+    Options:
+      --help, -h             Show this help message
+      --launch               Launch Firefox after profile creation
+      --output <path>        Profile output path
+  `);
+  process.exit(0);
+};
+
+if (args.values.help) {
+  showHelp();
+}
+
 let results;
 const conf_path = resolve(PROFILE_PATH_CLI || "./config.json");
 
@@ -165,8 +200,9 @@ if (
 }
 
 if (!results.outputsPath) {
-  results.outputsPath = "outputs/profile";
+  results.outputsPath = OUTPUT_PATH_CLI;
 }
+
 results.outputsPath = resolve(results.outputsPath);
 if (results.extendProfile) {
   results.extendProfile = {
@@ -194,16 +230,3 @@ if (await confirm(`Build profile to ${results.outputsPath} now?`)) {
     });
   }
 }
-// const cli = meow(
-//   `
-//     Usage:
-//         $: ${NAME} [options] [output path]
-
-//     Options:\n${Object.entries(OPTIONS)
-//       .map((i) => `      ${`--${i[0]}:`.padEnd(20, " ")} ${i[1].title}`)
-//       .join("\n")}
-// `,
-//   {
-//     importMeta: import.meta,
-//   }
-// );
