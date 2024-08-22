@@ -7,24 +7,13 @@ import log from "./helpers/log";
 import run from "./run";
 import { spawn, execSync } from "child_process";
 import { parseArgs } from "util";
-import { homedir } from "os";
+import { homedir, platform } from "os";
+import getFirefoxPaths from "./helpers/firefoxPaths";
 
 const NAME = `firefox-profile-creator`;
-// TODO: Make work with other OSes
-const APP_PATH = join(
-  "/Applications",
-  "Firefox.app",
-  "Contents",
-  "MacOS",
-  "firefox",
-);
-const PROFILES_PATH = resolve(
-  homedir(),
-  "Library",
-  "Application Support",
-  "Firefox",
-  "Profiles",
-);
+
+const { APP_PATH, PROFILES_PATH } = getFirefoxPaths();
+
 const args = parseArgs({
   args: Bun.argv,
   options: {
@@ -38,7 +27,7 @@ const args = parseArgs({
     output: {
       type: "string",
       short: "o",
-    }
+    },
   },
   allowPositionals: true,
 });
@@ -132,12 +121,16 @@ const questions = [
       }),
     ),
   },
-  ...(OUTPUT_PATH_CLI ? ([]) : ([{
-    type: "input",
-    name: "outputsPath",
-    default: "outputs/profile",
-    message: "Profile output path",
-  }])),
+  ...(OUTPUT_PATH_CLI
+    ? []
+    : [
+        {
+          type: "input",
+          name: "outputsPath",
+          default: "outputs/profile",
+          message: "Profile output path",
+        },
+      ]),
 ];
 const tc = (fn) => {
   try {
@@ -147,7 +140,6 @@ const tc = (fn) => {
   }
 };
 const confirm = async (q) => {
-  // If run like bun cli.js ~/Downloads/config.json
   if (PROFILE_PATH_CLI) {
     return true;
   }
@@ -162,19 +154,13 @@ const confirm = async (q) => {
     .then((a) => a.conf);
 };
 
-// TODO: Positional ags:
-/*
-${Object.entries(OPTIONS)
-  .map((i) => `--${i[0]}:`.padEnd(20) + i[1].title)
-  .join("\n      ")}
-*/
 const showHelp = () => {
   console.log(`
     Usage:
         ${NAME} [options] [config file path] [output file path]
 
     Note: All arguments are optional, this is an interactive tool mainly.
-    
+
     Options:
       --help, -h             Show this help message
       --launch               Launch Firefox after profile creation

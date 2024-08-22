@@ -5,13 +5,15 @@ import { ensureFolder } from "./helpers/ensure";
 import log from "./helpers/log";
 import copyFilesToProfile from "./helpers/copyFilesToProfile";
 import { profile } from "console";
-import { homedir } from "os";
+import { homedir, platform } from "os";
 import contentcsshandle from "./handlers/contentcss";
 import extensionshandle from "./handlers/extensions";
 import repohandle from "./handlers/repo";
 import userhandle from "./handlers/user";
 import usercss from "./handlers/usercss";
 import customjshandle from "./modules/custom-js/index";
+import firefoxPaths from "./helpers/firefoxPaths";
+import getFirefoxPaths from "./helpers/firefoxPaths";
 
 const HANDLERS = {
   "handlers/contentcss.js": contentcsshandle,
@@ -31,6 +33,10 @@ const directories = {
   modules: MODULE_DIR,
 };
 
+/**
+ * @param {Object} config - Configuration object
+ * @returns {Promise<void>}
+ */
 export default async function run(config) {
   console.assert(
     (await exec('echo "hello world"').then((r) => r.stdout?.trim())) ==
@@ -160,10 +166,12 @@ export default async function run(config) {
     log.debug(`Running module`, module.id, "with config", config[module.id]);
     const handle = HANDLERS[moduleConfig.handler];
 
+    let appPath = getFirefoxPaths().APP_PATH;
+
     await handle({
       ...config[module.id],
       profilePath,
-      appPath: "/Applications/Firefox.app",
+      appPath,
       modulesPath: resolve(join(directories.modules, module.id)),
       options: config[module.id].options,
     });
