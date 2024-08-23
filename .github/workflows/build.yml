@@ -1,4 +1,4 @@
-name: Build and Pre-release
+name: Build and Release
 
 on:
   workflow_dispatch:
@@ -18,12 +18,11 @@ jobs:
         run: bun install
       - name: Build project
         run: bun run build
-      - name: Create Pre-release
+      - name: Create Release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: true
-          title: "Development Build"
+          title: "Development Build ${{ github.sha }}"
           automatic_release_tag: latest
           files: |
             dist/*
