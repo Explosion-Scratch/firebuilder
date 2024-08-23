@@ -14,6 +14,7 @@ import usercss from "./handlers/usercss";
 import customjshandle from "./modules/custom-js/index";
 import firefoxPaths from "./helpers/firefoxPaths";
 import getFirefoxPaths from "./helpers/firefoxPaths";
+import allModules from "./helpers/allModules";
 
 const HANDLERS = {
   "handlers/contentcss.js": contentcsshandle,
@@ -104,10 +105,9 @@ export default async function run(config) {
     }
   }
 
-  const allModules = readdirSync(directories.modules)
-    .filter((i) => lstatSync(join(directories.modules, i)).isDirectory())
+  const allModules = allModules
     .map((i) => ({
-      directory: resolve(join(directories.modules, i)),
+      directory: join(directories.modules, i),
       config: readJSON(join(directories.modules, i, "index.json")),
       id: i,
     }))
