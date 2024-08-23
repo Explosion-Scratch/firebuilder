@@ -18,11 +18,15 @@ jobs:
         run: bun install
       - name: Build project
         run: bun run build
+      - name: Set outputs
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
       - name: Create Release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          title: "Development Build ${{ github.sha }}"
+          title: "Development Build ${{ steps.vars.outputs.sha_short }}"
+          prerelease: false
           automatic_release_tag: latest
           files: |
             dist/*
