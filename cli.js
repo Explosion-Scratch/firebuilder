@@ -10,7 +10,7 @@ import { parseArgs } from "util";
 import { homedir, platform } from "os";
 import getFirefoxPaths from "./helpers/firefoxPaths";
 import files from "./asset-bundle";
-import allModules from "./helpers/allModules";
+import modulesList from "./helpers/allModules";
 const NAME = `firefox-profile-creator`;
 
 const { APP_PATH, PROFILES_PATH } = getFirefoxPaths();
@@ -39,7 +39,7 @@ const OUTPUT_PATH_CLI = args.values.output ? resolve(args.values.output) : null;
 const MODULE_DIR = "modules";
 
 const OPTIONS = Object.fromEntries(
-  allModules
+  modulesList
     .map((i) => ({
       id: i,
       info: readJSON(join(MODULE_DIR, i, "index.json")),
@@ -128,6 +128,8 @@ const questions = [
           name: "outputsPath",
           default: "outputs/profile",
           message: "Profile output path",
+          validate: (i) =>
+            !existsSync(resolve(i)) || "Output path already exists",
         },
       ]),
 ];
@@ -203,15 +205,21 @@ writeFileSync("config.json", JSON.stringify(results, null, 2));
 
 if (await confirm(`Build profile to ${results.outputsPath} now?`)) {
   await run(results);
+  const firefoxPath =
+    tc(() => execSync("which firefox").toString().trim()) || APP_PATH;
+
   if (
     PROFILE_PATH_CLI ? args.values.launch : await confirm("Open firefox now?")
   ) {
     log.debug('Launching profile at "' + results.outputsPath + '"');
-    const firefoxPath =
-      tc(() => execSync("which firefox").toString().trim()) || APP_PATH;
     setTimeout(() => process.exit(0), 1000);
     spawn(firefoxPath, ["--profile", results.outputsPath], {
       detached: true,
     });
+  } else {
+    console.log(
+      "Run firefox as follows:\n\t" +
+        `${firefoxPath || "firefox"} --profile ${results.outputsPath}`,
+    );
   }
 }

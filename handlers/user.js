@@ -1,7 +1,7 @@
-import { readFileSync } from "fs";
 import defaultPrefs from "../helpers/constants";
 import copyFilesToProfile from "../helpers/copyFilesToProfile";
 import log from "../helpers/log";
+import readFile from "../helpers/readFile";
 
 export default function handle({
   profilePath,
@@ -14,7 +14,7 @@ export default function handle({
   for (let p of enabled) {
     log.debug(`userjs: Enabling module ${p}`);
     out += `/// BEGIN_MODULE: ${p}\n${
-      readFileSync(`${modulesPath}/${p}`, "utf-8")?.trim() ||
+      readFile(`${modulesPath}/${p}`)?.trim() ||
       "/// ERROR: Couldn't find module " + p
     }\n/// END_MODULE: ${p}\n\n`;
   }
