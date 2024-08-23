@@ -9,9 +9,7 @@
 </div>
 <br><br>
 
-**Note:**: For now build from source (clone then `bun run cli.js` or `bun run build`, I'll make a release soon.
-
-Basically an interactive CLI program that generates a [`config.json` file](examples/my-config/config.jsonc) which is then processed and [built into](run.js) a Firefox Profile folder.
+Basically an interactive CLI program that generates a [`config.json` file](examples/my-config/config.jsonc) which is then processed and [built into](run.js) a Firefox Profile folder. **[Install](https://github.com/Explosion-Scratch/firebuilder/releases/tag/latest)**
 
 ## **Features**:
 
@@ -24,7 +22,7 @@ Basically an interactive CLI program that generates a [`config.json` file](examp
 - 🫥 **Start with defaults (or not)**: You can start customizing based on [sensible defaults](examples/extend-default/config.jsonc) or [vanilla firefox](examples/vanilla-firefox/config.jsonc)
 
 ## **Getting started**:
-Download a binary for your platform from  [releases](https://github.com/Explosion-Scratch/firebuilder/releases/latest)
+Download a binary for your platform from  [releases](https://github.com/Explosion-Scratch/firebuilder/releases/tag/latest)
 
 > Shameless plug: You can install this in one command using my tool [justinstall](https://github.com/explosion-scratch/justinstall) by running `justinstall explosion-scratch/firebuilder`
 
