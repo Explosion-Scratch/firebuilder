@@ -1,8 +1,6 @@
 {
   "repos": {
-    "enabled": [
-      "minifox.json"
-    ]
+    "enabled": []
   },
   "custom-js": {
     "isEnabled": false
