@@ -9,7 +9,7 @@ import { spawn, execSync } from "child_process";
 import { parseArgs } from "util";
 import { homedir, platform } from "os";
 import getFirefoxPaths from "./helpers/firefoxPaths";
-
+import files from "./asset-bundle";
 const NAME = `firefox-profile-creator`;
 
 const { APP_PATH, PROFILES_PATH } = getFirefoxPaths();
@@ -38,8 +38,7 @@ const OUTPUT_PATH_CLI = args.values.output ? resolve(args.values.output) : null;
 const MODULE_DIR = "modules";
 
 const OPTIONS = Object.fromEntries(
-  readdirSync(resolve(MODULE_DIR))
-    .filter((i) => lstatSync(join(MODULE_DIR, i)).isDirectory())
+  ["contentcss", "css", "custom-js", "extensions", "repos", "userjs"]
     .map((i) => ({
       id: i,
       info: readJSON(join(MODULE_DIR, i, "index.json")),
