@@ -1,4 +1,3 @@
-import { readFileSync } from "fs";
 import defaultPrefs from "../helpers/constants";
 import copyFilesToProfile from "../helpers/copyFilesToProfile";
 import log from "../helpers/log";
@@ -26,8 +25,7 @@ export default function handle({
         `/* ${defaultPrefs.preamble} */\n\n` +
         enabled
           .map(
-            (i) =>
-              `@import url(${JSON.stringify(`content_css_files/${i}`)});`
+            (i) => `@import url(${JSON.stringify(`content_css_files/${i}`)});`,
           )
           .join("\n"),
     },

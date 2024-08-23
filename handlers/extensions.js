@@ -1,4 +1,3 @@
-import { readFileSync, writeFileSync } from "fs";
 import { dirname, join } from "path";
 import defaultPrefs from "../helpers/constants";
 import copyFilesToProfile from "../helpers/copyFilesToProfile";
@@ -67,9 +66,8 @@ export default async function handle({
     //   installation_mode: "force_installed",
     // };
     prefs["extensions.webextensions.uuids"][ext.id] = ext.uuid;
-    prefs[
-      `extensions.webextensions.ExtensionStorageIDB.migrated.${ext.id}`
-    ] = true;
+    prefs[`extensions.webextensions.ExtensionStorageIDB.migrated.${ext.id}`] =
+      true;
   }
   prefs["extensions.webextensions.uuids"] = JSON.stringify({
     ...defaultExtensions,

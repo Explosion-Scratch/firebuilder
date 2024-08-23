@@ -26,11 +26,8 @@ const HANDLERS = {
 
 const exec = require("util").promisify(require("child_process").exec);
 
-const THIS_DIR = __dirname;
-const MODULE_DIR = resolve(THIS_DIR, "modules");
-
 const directories = {
-  modules: MODULE_DIR,
+  modules: "modules",
 };
 
 /**
@@ -172,7 +169,7 @@ export default async function run(config) {
       ...config[module.id],
       profilePath,
       appPath,
-      modulesPath: resolve(join(directories.modules, module.id)),
+      modulesPath: join(directories.modules, module.id),
       options: config[module.id].options,
     });
   }

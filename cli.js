@@ -35,15 +35,14 @@ const PROFILE_PATH_CLI = args.positionals[2];
 
 const OUTPUT_PATH_CLI = args.values.output ? resolve(args.values.output) : null;
 
-const THIS_DIR = __dirname;
-const MODULE_DIR = resolve(THIS_DIR, "modules");
+const MODULE_DIR = "modules";
 
 const OPTIONS = Object.fromEntries(
   readdirSync(resolve(MODULE_DIR))
     .filter((i) => lstatSync(join(MODULE_DIR, i)).isDirectory())
     .map((i) => ({
       id: i,
-      info: readJSON(resolve(MODULE_DIR, i, "index.json")),
+      info: readJSON(join(MODULE_DIR, i, "index.json")),
     }))
     .map((i) => [i.id, i.info]),
 );
@@ -51,7 +50,7 @@ const OPTIONS = Object.fromEntries(
 const questions = [
   ...Object.entries(OPTIONS)
     .map(([k, v]) => {
-      const index = readJSON(resolve(MODULE_DIR, k, "index.json"));
+      const index = readJSON(join(MODULE_DIR, k, "index.json"));
 
       if (!v.modules) {
         return {
@@ -180,7 +179,7 @@ if (
   existsSync(conf_path) &&
   (await confirm('Load profile config from "config.json?"'))
 ) {
-  results = readJSON(conf_path);
+  results = readJSON(conf_path, true);
 } else {
   results = await inquirer.prompt(questions);
 }

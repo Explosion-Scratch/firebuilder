@@ -177,3 +177,8 @@ outputs
 !repos
 
 config.json
+
+dist
+asset-bundle.js
+
+config.json

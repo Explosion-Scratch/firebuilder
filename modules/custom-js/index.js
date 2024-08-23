@@ -33,7 +33,7 @@ export default async function handle({
   cpSync(join(folder, "profile", "chrome"), resolve(profilePath, "chrome"), {
     recursive: true,
   });
-  const prefs = { ...readJSON(resolve(modulesPath, "index.json")), ...options };
+  const prefs = { ...readJSON(join(modulesPath, "index.json")), ...options };
   for (let [url, details] of Object.entries(prefs.sources)) {
     const dest = resolve(sourcesFolder, details.id || details.name);
     await exec(`git clone ${JSON.stringify(url)} ${JSON.stringify(dest)}`);

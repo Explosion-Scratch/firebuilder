@@ -8,7 +8,9 @@
     "@types/bun": "latest"
   },
   "scripts": {
-    "build": "rm -rf dist && bun build --compile ./cli.js --outfile dist/firebuilder-darwin-arm64 --target bun-darwin-arm64 && bun build --compile ./cli.js --outfile dist/firebuilder-darwin-x64 --target bun-darwin-x64 && bun build --compile ./cli.js --outfile dist/firebuilder-linux-x64 --target bun-linux-x64 && bun build --compile ./cli.js --outfile dist/firebuilder-linux-arm64 --target bun-linux-arm64 && bun build --compile ./cli.js --outfile dist/firebuilder-windows-x64 --target bun-windows-x64"
+    "build": "rm -rf dist && bun run build:make-vfs && bun run build:build",
+    "build:make-vfs": "bunx make-vfs --dir ./modules --content-format string --outfile asset-bundle.js",
+    "build:build": "bun build --compile ./cli.js --outfile dist/firebuilder-darwin-arm64 --target bun-darwin-arm64 && bun build --compile ./cli.js --outfile dist/firebuilder-darwin-x64 --target bun-darwin-x64 && bun build --compile ./cli.js --outfile dist/firebuilder-linux-x64 --target bun-linux-x64 && bun build --compile ./cli.js --outfile dist/firebuilder-linux-arm64 --target bun-linux-arm64 && bun build --compile ./cli.js --outfile dist/firebuilder-windows-x64 --target bun-windows-x64"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
