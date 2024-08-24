@@ -21,15 +21,6 @@ export default async function handle({
   options = {},
   enabled = [],
 }) {
-  //   const policiesPath = join(appPath, "Contents", "Resources", "policies.json");
-  //   let policies = readJSON(policiesPath);
-
-  //   policies = {
-  //     ...policies,
-  //     ExtensionUpdate: true,
-  //   };
-  //   policies.ExtensionSettings = policies.ExtensionSettings || {};
-
   let out = "/// BEGIN EXTENSIONS\n";
   let prefs = {
     "extensions.webextensions.uuids": {},
@@ -53,21 +44,19 @@ export default async function handle({
       }
     }
     const install_url = `https://addons.mozilla.org/firefox/downloads/latest/${ext.slug}/platform:3/${ext.slug}.xpi`;
-    // Download the extension
+    log.info(`Downloading extension: ${ext.slug}`);
     const buff = await fetch(install_url).then((r) => r.arrayBuffer());
+    log.debug(`Extension downloaded: ${ext.slug}`);
     copyFilesToProfile(profilePath, [
       {
         name: `extensions/${ext.id}.xpi`,
         content: Buffer.from(buff),
       },
     ]);
-    // policies.ExtensionSettings[ext.id] = {
-    //   install_url,
-    //   installation_mode: "force_installed",
-    // };
     prefs["extensions.webextensions.uuids"][ext.id] = ext.uuid;
     prefs[`extensions.webextensions.ExtensionStorageIDB.migrated.${ext.id}`] =
       true;
+    log.debug(`Extension installed: ${ext.slug}`);
   }
   prefs["extensions.webextensions.uuids"] = JSON.stringify({
     ...defaultExtensions,
@@ -78,6 +67,7 @@ export default async function handle({
     .join("\n");
   out += "\n/// END EXTENSIONS";
 
+  log.info("Writing user preferences");
   copyFilesToProfile(profilePath, [
     {
       name: "user.js",
@@ -85,10 +75,5 @@ export default async function handle({
       content: out,
     },
   ]);
-  //   copyFilesToProfile(dirname(policiesPath), [
-  //     {
-  //       name: "policies.json",
-  //       content: JSON.stringify(policies, null, 2),
-  //     },
-  //   ]);
+  log.debug("User preferences written successfully");
 }

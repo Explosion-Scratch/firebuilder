@@ -4,14 +4,20 @@
   "handler": "handlers/repo.js",
   "buildOrder": 10,
   "modules": {
-    "minifox.json": {
-      "description": "Minifox Theme"
-    },
     "animatedfox.json": {
       "description": "AnimatedFox Theme"
     },
+    "ff-ultima.json": {
+      "description": "Completely customizable firefox theme"
+    },
+    "firefox-ui-fix.json": {
+      "description": "Firefox UI fix"
+    },
     "materialfox.json": {
       "description": "MaterialFox Theme"
+    },
+    "minifox.json": {
+      "description": "Minifox Theme"
     },
     "safari-style.json": {
       "description": "Safari Style"

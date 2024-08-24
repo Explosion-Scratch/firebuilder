@@ -16,9 +16,12 @@ export default async function handle({
   options = {},
   enabled = [],
 }) {
+  log.info(`Starting to handle ${enabled.length} enabled modules`);
   for (let p of enabled) {
+    log.debug(`Processing module: ${p}`);
     const repo = { ...readJSON(join(modulesPath, p)), ...(options[p] || {}) };
     if (repo.prefs) {
+      log.info(`Applying preferences for module: ${p}`);
       for (let [k, v] of Object.entries(repo.prefs)) {
         copyFilesToProfile(profilePath, [
           {
@@ -29,40 +32,43 @@ export default async function handle({
             }\nuser_pref("${k}", ${JSON.stringify(v)});`,
           },
         ]);
+        log.debug(`Applied preference: ${k} = ${JSON.stringify(v)}`);
       }
     }
 
     const PATH = resolve(profilePath, "repos", repo.id);
+    log.info(`Setting up repository at: ${PATH}`);
 
     if (repo.useReleases) {
       const id = repo.url.replace(/\/$/, "").split("/").slice(-2).join("/");
-      log.debug('Getting latest release for "' + id + '"');
+      log.debug(`Getting latest release for: ${id}`);
       const tags = await fetch(
-        `https://api.github.com/repos/${id}/releases/latest`
+        `https://api.github.com/repos/${id}/releases/latest`,
       ).then((r) => r.json());
       const url = tags.assets.find((i) =>
-        i.name.startsWith(repo.useReleases)
+        i.name.startsWith(repo.useReleases),
       )?.browser_download_url;
       if (!url) {
+        log.error(`Failed to find download URL for ${id}`);
         throw new Error("Couldn't find download url");
       }
       const ZIP_PATH = `${PATH}.zip`;
-      log.info("Downloading ZIP from releases ", url);
+      log.info(`Downloading ZIP from releases: ${url}`);
       const buf = Buffer.from(await fetch(url).then((r) => r.arrayBuffer()));
       ensureFolder(dirname(ZIP_PATH));
       writeFileSync(ZIP_PATH, buf);
-      log.info("Unzipping " + ZIP_PATH);
+      log.info(`Unzipping ${ZIP_PATH}`);
       await exec(
-        `unzip ${JSON.stringify(ZIP_PATH)} -d ${JSON.stringify(PATH)}`
+        `unzip ${JSON.stringify(ZIP_PATH)} -d ${JSON.stringify(PATH)}`,
       );
-      log.debug("Done unzipping, removing file " + ZIP_PATH);
+      log.debug(`Finished unzipping, removing file: ${ZIP_PATH}`);
       rmSync(ZIP_PATH);
     } else {
-      log.info('Cloning repo "' + repo.url + '"');
+      log.info(`Cloning repo: ${repo.url}`);
       await exec(
-        `git clone ${JSON.stringify(repo.url)} ${JSON.stringify(PATH)}`
+        `git clone ${JSON.stringify(repo.url)} ${JSON.stringify(PATH)}`,
       );
-      log.debug("Done cloning repo");
+      log.debug(`Finished cloning repo: ${repo.url}`);
     }
     let bypass = false;
     const custom = {
@@ -71,13 +77,15 @@ export default async function handle({
     };
     if (repo.userChrome) {
       bypass = true;
+      log.info(`Writing custom userChrome.css for ${repo.id}`);
       writeFileSync(resolve(PATH, custom.userChrome + ".css"), repo.userChrome);
     }
     if (repo.userContent) {
       bypass = true;
+      log.info(`Writing custom userContent.css for ${repo.id}`);
       writeFileSync(
         resolve(PATH, custom.userContent + ".css"),
-        repo.userContent
+        repo.userContent,
       );
     }
     const filesToLink = bypass
@@ -98,10 +106,11 @@ export default async function handle({
     let alreadyDone = [];
     for (let [k, v] of filesToLink) {
       if (alreadyDone.includes(k)) {
+        log.debug(`Skipping duplicate file: ${k}`);
         continue;
       }
       if (existsSync(v)) {
-        log.debug(`repo: Enabling module ${p} - ${k}`);
+        log.info(`Enabling module ${p} - ${k}`);
         copyFilesToProfile(join(profilePath, "chrome"), [
           {
             name: k,
@@ -112,10 +121,13 @@ export default async function handle({
           },
         ]);
         alreadyDone.push(k);
+      } else {
+        log.warn(`File not found: ${v}`);
       }
     }
 
     if (existsSync(resolve(PATH, "user.js"))) {
+      log.info(`Importing user.js from ${repo.id}`);
       copyFilesToProfile(profilePath, [
         {
           name: "user.js",
@@ -127,7 +139,10 @@ export default async function handle({
             readFileSync(resolve(PATH, "user.js"), "utf-8"),
         },
       ]);
+    } else {
+      log.debug(`No user.js found for ${repo.id}`);
     }
   }
+  log.info("Finished handling all enabled modules");
   return;
 }

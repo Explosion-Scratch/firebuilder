@@ -9,20 +9,33 @@ export default function handle({
   options = {},
   enabled = [],
 }) {
+  log.info("Starting userjs handling");
   let out = `/* ${defaultPrefs.preamble} */\n\n\n`;
 
   for (let p of enabled) {
     log.debug(`userjs: Enabling module ${p}`);
-    out += `/// BEGIN_MODULE: ${p}\n${
-      readFile(`${modulesPath}/${p}`)?.trim() ||
-      "/// ERROR: Couldn't find module " + p
-    }\n/// END_MODULE: ${p}\n\n`;
+    const moduleContent = readFile(`${modulesPath}/${p}`);
+    if (moduleContent) {
+      out += `/// BEGIN_MODULE: ${p}\n${moduleContent.trim()}\n/// END_MODULE: ${p}\n\n`;
+    } else {
+      log.error(`Couldn't find module ${p}`);
+      out += `/// ERROR: Couldn't find module ${p}\n\n`;
+    }
   }
-  copyFilesToProfile(profilePath, [
-    {
-      name: "user.js",
-      append: true,
-      content: out,
-    },
-  ]);
+
+  log.info("Copying files to profile");
+  try {
+    copyFilesToProfile(profilePath, [
+      {
+        name: "user.js",
+        append: true,
+        content: out,
+      },
+    ]);
+    log.debug("Files copied successfully");
+  } catch (error) {
+    log.error("Error copying files to profile:", error);
+  }
+
+  log.info("userjs handling completed");
 }

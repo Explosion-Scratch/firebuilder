@@ -10,26 +10,37 @@ export default function handle({
   options = {},
   enabled = [],
 }) {
+  log.info(`Starting usercss handling for profile: ${profilePath}`);
   let out = `/* ${defaultPrefs.preamble} */\n\n\n`;
 
   for (let p of enabled) {
     log.debug(`usercss: Enabling module ${p}`);
-    copyFilesToProfile(join(profilePath, "chrome", "css_files"), [
-      join(modulesPath, p),
-    ]);
+    try {
+      copyFilesToProfile(join(profilePath, "chrome", "css_files"), [
+        join(modulesPath, p),
+      ]);
+      log.info(`Successfully copied module ${p} to profile`);
+    } catch (error) {
+      log.error(`Failed to copy module ${p} to profile: ${error.message}`);
+    }
   }
-  copyFilesToProfile(join(profilePath, "chrome"), [
-    {
-      name: "userChrome.css",
-      append: true,
-      content:
-        `/* ${defaultPrefs.preamble} */\n\n` +
-        enabled
-          .map(
-            (i) =>
-              `@import url(${JSON.stringify(`css_files/${i}`)});`
-          )
-          .join("\n"),
-    },
-  ]);
+
+  try {
+    copyFilesToProfile(join(profilePath, "chrome"), [
+      {
+        name: "userChrome.css",
+        append: true,
+        content:
+          `/* ${defaultPrefs.preamble} */\n\n` +
+          enabled
+            .map((i) => `@import url(${JSON.stringify(`css_files/${i}`)});`)
+            .join("\n"),
+      },
+    ]);
+    log.info("Successfully created or updated userChrome.css");
+  } catch (error) {
+    log.error(`Failed to create or update userChrome.css: ${error.message}`);
+  }
+
+  log.info("Finished usercss handling");
 }

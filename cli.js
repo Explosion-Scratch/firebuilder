@@ -157,15 +157,15 @@ const confirm = async (q) => {
 
 const showHelp = () => {
   console.log(`
-    Usage:
+    \x1b[1mUsage:\x1b[0m
         ${NAME} [options] [config file path] [output file path]
 
-    Note: All arguments are optional, this is an interactive tool mainly.
+    \x1b[33mNote: All arguments are optional, this is an interactive tool mainly.\x1b[0m
 
-    Options:
-      --help, -h             Show this help message
-      --launch               Launch Firefox after profile creation
-      --output <path>        Profile output path
+    \x1b[1mOptions:\x1b[0m
+      \x1b[32m--help, -h\x1b[0m             Show this help message
+      \x1b[32m--launch\x1b[0m               Launch Firefox after profile creation
+      \x1b[32m--output <path>\x1b[0m        Profile output path
   `);
   process.exit(0);
 };
