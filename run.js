@@ -103,6 +103,24 @@ export default async function run(config) {
         );
       }
     }
+    if (config.extendProfile.merge === "select") {
+      delete config.extendProfile.merge;
+    }
+    if (config.extendProfile.merge) {
+      const filesToMerge =
+        config.extendProfile.merge === "all"
+          ? readdirSync(path)
+          : config.extendProfile.merge;
+      if (!Array.isArray(filesToMerge)) {
+        log.error("Invalid merge option: ", filesToMerge);
+        process.exit(1);
+      }
+      filesToMerge.forEach((file) => {
+        cpSync(resolve(path, file), resolve(profilePath, file), {
+          recursive: true,
+        });
+      });
+    }
   }
 
   const allModules = modulesList

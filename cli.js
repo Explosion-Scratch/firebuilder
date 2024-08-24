@@ -106,10 +106,19 @@ const questions = [
       })),
   },
   {
-    type: "checkbox",
+    type: "list",
+    name: "extendProfile.merge",
     when: (a) => a.extendProfile?.path,
-    message:
-      "Which parts of the old profile should be copied to the new profile?",
+    message: "How would you like to merge the profile?",
+    choices: [
+      { name: "All files", value: "all" },
+      { name: "Select specific files", value: "select" },
+    ],
+  },
+  {
+    type: "checkbox",
+    when: (a) => a.extendProfile?.merge === "select",
+    message: "Select things to merge",
     loop: false,
     name: "extendProfile.choices",
     choices: ["bookmarks", "history", "passwords", "cookies", "extensions"].map(
@@ -194,9 +203,10 @@ results.outputsPath = resolve(results.outputsPath);
 if (results.extendProfile) {
   results.extendProfile = {
     path: results.extendProfile.path,
-    ...(results.extendProfile.choices
+    ...(results.extendProfile?.choices
       ? Object.fromEntries(results.extendProfile.choices.map((i) => [i, true]))
-      : results.extendProfile),
+      : {}),
+    ...(results.extendProfile.merge === "all" ? { merge: "all" } : {}),
   };
 }
 
