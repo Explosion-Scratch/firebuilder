@@ -75,3 +75,6 @@ user_pref("browser.contentblocking.database.enabled", false);
 // Disable celebrating milestone toast when certain numbers of trackers are blocked
 user_pref("browser.contentblocking.cfr-milestone.enabled", false);
 user_pref("default-browser-agent.enabled", false);
+
+// Inspired by https://make-firefox-private-again.com/
+user_pref("dom.private-attribution.submission.enabled", false);
