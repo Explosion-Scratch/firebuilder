@@ -1,5 +1,5 @@
 import { platform, homedir } from "os";
-import { join, resolve } from "path";
+import { join, resolve, existsSync } from "path";
 
 export default function getFirefoxPaths() {
   const os = platform();
